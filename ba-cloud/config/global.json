@@ -1,0 +1,11 @@
+{
+    "applications": {
+        "_default": {
+            "link": "ba"
+        }, 
+        "ba": {
+            "applicationId": "PME7lKHj8eotzuQfdx4JpeiJyWxWYUa3gyOCnKiL", 
+            "masterKey": "Ek2SiEsM7wlx3p9CZYlmv1GEep3kWFwGYLG1Dfx2"
+        }
+    }
+}

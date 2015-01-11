@@ -14,12 +14,11 @@ if(process && process.env && process.env.APPLICATION_ID && process.env.JAVASCRIP
 
 var routes = require('./routes/index');
 var login = require('./routes/login');
-var users = require('./routes/users');
-var clients = require('./routes/clients');
+var client = require('./routes/client');
 
 var app = express();
 
-// VIEW ENGINE SETUP
+// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
@@ -34,8 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/login', login);
-app.use('/users', users);
-app.use('/clients', clients);
+app.use('/client', client);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -44,15 +42,16 @@ app.use(function(req, res, next) {
     next(err);
 });
 
-// ERROR HANDLERS
+// error handlers
 
-// DEVELOPMENT ERROR HANDLER
-// WILL PRINT STACKTRACE
+// development error handler
+// will print stacktrace
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
-        console.log("ERROR MESSAGE: " + err.message + " ERROR STATUS: " + err.status);
-        /*res.status(err.status || 500);
-        res.render('error', {
+        res.status(err.status || 500);
+        console.log(JSON.stringify(err));
+        console.log(err.message);
+        /*res.render('error', {
             message: err.message,
             error: err
         });*/
@@ -62,9 +61,10 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-    console.log("ERROR MESSAGE: " + err.message + " ERROR STATUS: " + err.status);
-    /*res.status(err.status || 500);
-    res.render('error', {
+    res.status(err.status || 500);
+    console.log(JSON.stringify(err));
+    console.log(err.message);
+    /*res.render('error', {
         message: err.message,
         error: {}
     });*/

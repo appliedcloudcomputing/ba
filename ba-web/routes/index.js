@@ -1,18 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET HOME PAGE */
+/* GET home page. */
 router.get('/', function(req, res) {
-	var currentUser;
-	if(req.session) {	
-		currentUser = req.session.user;
-	}
-	
-	if (currentUser) {			
-		res.redirect('/clients/');
-	} else {
-		res.redirect('/login/');
-	}
+  res.render('login', { title: 'Login' });
 });
 
 module.exports = router;

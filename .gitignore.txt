@@ -1,1 +1,2 @@
+.metadata
 ba-web/node-modules
