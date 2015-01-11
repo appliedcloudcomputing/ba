@@ -16,6 +16,8 @@
 	
 	<!-- start: CSS -->
 	<link id="bootstrap-style" href="css/bootstrap.min.css" rel="stylesheet">
+	<link id="bootstrap-style" href="css/jquery.dataTables.css" rel="stylesheet">
+	
 	<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 	<link id="base-style" href="css/style.css" rel="stylesheet">
 	<link id="base-style-responsive" href="css/style-responsive.css" rel="stylesheet">
@@ -791,5 +793,32 @@
 		<script src="js/custom.js"></script>
 	<!-- end: JavaScript-->
 	
+	<!-- start: Custom JavaScript-->
+		<script>
+			$(document).ready(function() {
+			var t = $('#example').DataTable();
+			var counter = 1;
+		 
+			$('#addRow').on( 'click', function () {
+				t.row.add( [
+					counter +'.1',
+					counter +'.2',
+					counter +'.3',
+					counter +'.4',
+					counter +'.5'
+				] ).draw();
+		 
+				counter++;
+			} );
+		 
+			// Automatically add a first row of data
+			$('#addRow').click();
+		} );
+		</script>
+		<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+		<script src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+		
+		<!-- end: Custom JavaScript-->
 </body>
 </html>
