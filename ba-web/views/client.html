@@ -21,6 +21,8 @@
 	<link id="base-style-responsive" href="/css/style-responsive.css" rel="stylesheet">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,latin-ext' rel='stylesheet' type='text/css'>
 	<!-- end: CSS -->
+
+		<script type="text/javascript" src="/javascript/forms.js"></script>
 	
 
 	<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -124,40 +126,43 @@
 						<h2><i class="halflings-icon white edit"></i><span class="break"></span>Client Form</h2>
 					</div>
 					<div class="box-content">
-						<form class="form-horizontal">
+						<form class="form-horizontal" method="post" action="/client/save">
+							<div id="message" class="message">
+								<p></p>
+							</div>
 							<fieldset>
 							  <div class="control-group">
 								<label class="control-label" for="focusedInput">Name :</label>
 								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" value="">
+								  <input class="input-xlarge focused" id="focusedInput" type="text" name="name" value="">
 								</div>
 							  </div>
 							  
 							  <div class="control-group">
 								<label class="control-label" for="focusedInput">Address Line 1 :</label>
 								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" value="">
+								  <input class="input-xlarge focused" id="focusedInput" type="text" name="address1" value="">
 								</div>
 							  </div>
 							  
 							  <div class="control-group">
 								<label class="control-label" for="focusedInput">Address Line 2 :</label>
 								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" value="">
+								  <input class="input-xlarge focused" id="focusedInput" type="text" name="address2" value="">
 								</div>
 							  </div>
 							  
 							  <div class="control-group">
 								<label class="control-label" for="focusedInput">Address Line 3 :</label>
 								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" value="">
+								  <input class="input-xlarge focused" id="focusedInput" type="text" name="address3" value="">
 								</div>
 							  </div>
 							  
 							  <div class="control-group">
 								<label class="control-label" for="focusedInput">City :</label>
 								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" value="">
+								  <input class="input-xlarge focused" id="focusedInput" type="text" name="city" value="">
 								</div>
 							  </div>
 							  
