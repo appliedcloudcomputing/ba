@@ -10,12 +10,11 @@ router.post('/', function(req, res) {
 	var password = req.body.password;
 
 	Parse.User.logIn(username, password, { 
-		success: function(user) {			
-			console.log("Inside success");
+		success: function(user) {
 			if(user) {
 				console.log("User logged in");
 				req.session.user = JSON.stringify(user);
-				res.redirect('/client/');
+				res.redirect('/client/save');
 			} else {
 				res.render('login', { 
 					title: 'Login', 
