@@ -13,24 +13,26 @@ $(document).ready(function() {
         var _data = $(e.currentTarget).serializeObject();
         var valid = $(e.currentTarget).valid();   
         if(valid) {
-        //LOADER START
-            if($('#loader')) {
+            //LOADER START
+            /*if($('#loader')) {
                 $.blockUI({ 
                     message: $('#loader'),
                     css: { width: '4%', border:'0px solid #FFFFFF', cursor:'wait',backgroundColor:'#FFFFFF', top: '50%', left: '50%'},
                     overlayCSS:  { backgroundColor: '#FFFFFF', width: '100%', height: '100%', opacity: '0.5', position: 'fixed', opacity:0.5, cursor:'wait'} 
                 });
-            }
+            }*/
 
             $.ajax({
                 type: e.currentTarget.method,
                 url: e.currentTarget.action,
                 data: JSON.stringify(_data),
                 success: function(data) {
+                    console.log("SUCCESS FORM");
                     if(data) {
                         if(data.status == 200) {
-                            $.unblockUI();
+                            //$.unblockUI();
                             if($(e.currentTarget).data().uri)
+                                console.log("CURRENT URI: " + $(e.currentTarget).data().uri);
                                 window.location=$(e.currentTarget).data().uri;
                             else {
                                 $(e.currentTarget).find("div#message p").html(data.message);
@@ -38,7 +40,7 @@ $(document).ready(function() {
                                 $(window).scrollTop($('div#message').offset().top);
                             }
                         } else {
-                            $.unblockUI();                    
+                            //$.unblockUI();                    
                             $(e.currentTarget).find("div#message p").html(data.message);
                             $(e.currentTarget).find("div#message").show();
                             $(window).scrollTop($('div#message').offset().top);
@@ -46,7 +48,7 @@ $(document).ready(function() {
                     }
                 },
                 error: function(xhr, textStatus, errorThrown) {                    
-                    $.unblockUI();                    
+                    //$.unblockUI();                    
                     $(e.currentTarget).find("div#message p").html(xhr.responseText);
                     $(e.currentTarget).find("div#message").show();
                     $(window).scrollTop($('div#message').offset().top);

@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function(req, res) {	
+router.get('/save', function(req, res) {	
 	res.render('client', { title: 'Client'});
 });
 
