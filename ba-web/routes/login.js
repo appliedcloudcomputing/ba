@@ -6,27 +6,23 @@ router.get('/', function(req, res) {
 }); 
 
 router.post('/', function(req, res) {
+	
 	var username = req.body.username;
 	var password = req.body.password;
 
 	Parse.User.logIn(username, password, { 
 		success: function(user) {
 			if(user) {
-				console.log("User logged in");
+				console.log("USER FOUND");
 				req.session.user = JSON.stringify(user);
 				res.redirect('/client/save');
 			} else {
-				res.render('login', { 
-					title: 'Login', 
-					message: Response.InvalidLogin
-				}); 
+				console.log("USER NOT FOUND");
+				res.render('login', {title: 'Login', message: Response.InvalidLogin}); 
 			}						
 		},
 		error: function(user, error) {
-			res.render('login', { 
-				title: 'Login', 
-				message: Response.InvalidLogin
-			});   
+			res.render('login', {title: 'Login', message: Response.InvalidLogin});
 		}
 	}); 
 });

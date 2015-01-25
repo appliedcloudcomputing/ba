@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/save', function(req, res) {	
+router.get('/save', function(req, res) {
+	console.log("Rendering clients save page...");	
 	res.render('client', { title: 'Client'});
 });
 
@@ -25,7 +26,11 @@ router.post('/save', function(req, res) {
 				res.end(JSON.stringify(response));
 			},
 			error: function(error) {
-				res.send(500, error.message);
+				var response = {
+					message: error.message,
+					status: error.code
+				}
+				res.end(JSON.stringify(response));
 			}
 		});
 	} else {
