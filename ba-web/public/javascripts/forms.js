@@ -1,7 +1,7 @@
 $body = $("body");
 
 $(document).ready(function() {
-    console.log("INSIDE FORM.JS");
+    console.log("###############################################INSIDE FORM.JS");
 
     //HIDING ERROR AND SUCCESS DIVS ON PAGE LOAD
     //$("div.error-box").hide();

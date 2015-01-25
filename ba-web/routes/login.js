@@ -1,8 +1,13 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function(req, res) {	
-	res.render('login', { title: 'Login'});
+router.get('/', function(req, res) {
+	var currentUser = req.session.user ? JSON.parse(req.session.user) : null;	
+	if (currentUser) {
+		res.render('client', { title: 'Client'});
+	} else {
+		res.redirect('/login');
+	}
 }); 
 
 router.post('/', function(req, res) {
@@ -24,7 +29,7 @@ router.post('/', function(req, res) {
 		error: function(user, error) {
 			res.render('login', {title: 'Login', message: Response.InvalidLogin});
 		}
-	}); 
+	});
 });
 
 module.exports = router;

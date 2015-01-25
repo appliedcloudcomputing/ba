@@ -2,8 +2,13 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/save', function(req, res) {
-	console.log("Rendering clients save page...");	
-	res.render('client', { title: 'Client'});
+	console.log("Rendering clients save page...");
+	var currentUser = req.session.user ? JSON.parse(req.session.user) : null;	
+	if (currentUser) {	
+		res.render('client', { title: 'Client'});
+	} else {
+		res.redirect('/login');
+	}
 });
 
 router.post('/save', function(req, res) {
