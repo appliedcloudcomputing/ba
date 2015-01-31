@@ -1,4 +1,5 @@
 var client = require('cloud/client/client.js');
+var product = require('cloud/product/product.js');
 
 var Response = {
 	ParametersEmpty: "Please provide complete details",
@@ -32,6 +33,39 @@ Parse.Cloud.define("saveClient", function(req, res) {
 			address1: req.params.address1,
 			address2: req.params.address2,
 			address3: req.params.address3,
+			city: req.params.city,
+			success: function(message) {
+				res.success(message);
+			},
+			error: function(error) {
+				res.error(error);
+			}
+		});
+	}
+});
+
+Parse.Cloud.define("saveProduct", function(req, res) {
+	if(!req.params.id || req.params.id == 0) {
+		product.save({
+			name: req.params.name,
+			description: req.params.description,
+			rate: req.params.rate,
+			uom: req.params.uom,
+			city: req.params.city,
+			success: function(message) {
+				res.success(message);
+			},
+			error: function(error) {
+				res.error(error);
+			}
+		});
+	} else {
+		product.update({
+			id: req.params.id,
+			name: req.params.name,
+			description: req.params.description,
+			rate: req.params.rate,
+			uom: req.params.uom,
 			city: req.params.city,
 			success: function(message) {
 				res.success(message);

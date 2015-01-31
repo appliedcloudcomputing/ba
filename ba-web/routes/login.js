@@ -6,7 +6,7 @@ router.get('/', function(req, res) {
 	if (currentUser) {
 		res.render('client', { title: 'Client'});
 	} else {
-		res.redirect('/login');
+		res.redirect('/');
 	}
 }); 
 

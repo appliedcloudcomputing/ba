@@ -12,7 +12,7 @@ router.get('/save', function(req, res) {
 });
 
 router.post('/save', function(req, res) {
-	console.log("INSIDE POST");
+	console.log("Saving client...");
 	var currentUser = req.session.user ? JSON.parse(req.session.user) : null;
 	if(currentUser) {
 		var data = {"id": req.body.id,

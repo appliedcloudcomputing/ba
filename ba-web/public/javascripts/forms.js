@@ -1,7 +1,6 @@
 $body = $("body");
 
 $(document).ready(function() {
-    console.log("###############################################INSIDE FORM.JS");
 
     //HIDING ERROR AND SUCCESS DIVS ON PAGE LOAD
     //$("div.error-box").hide();
@@ -9,36 +8,44 @@ $(document).ready(function() {
 
     //FORM SUBMUIT FUNCTION
 	$("form").on("submit", function(e) {
-        console.log("INSIDE SUBMIT");
         e.preventDefault();
+        var msgBox = $(e.currentTarget).find("div#message");
+        var msgText = $(e.currentTarget).find("div#message p");
         var _data = $(e.currentTarget).serializeObject();
         $.ajax({
             type: e.currentTarget.method,
             url: e.currentTarget.action,
             data: JSON.stringify(_data),
             success: function(data) {
-                console.log("SUCCESS FORM");
                 if(data) {
                     console.log("DATA INSIDE SUCCESS: " + JSON.stringify(data));
+                    console.log("DATA INSIDE SUCCESS: " + data.status);
                     if(data.status == 200) {
-                        if($(e.currentTarget).data().uri) {
-                            console.log("CURRENT URI: " + $(e.currentTarget).data().uri);
-                            window.location=$(e.currentTarget).data().uri;
-                        } else {
-                            $(e.currentTarget).find("div#message p").html(data.message);
-                            $(e.currentTarget).find("div#message").show();
+                        /*if($(e.currentTarget).data().uri) {*/
+                            msgText.html(data.message);
+                            msgBox.addClass("alert-info");
+                            msgBox.show();
                             $(window).scrollTop($('div#message').offset().top);
-                        }
+                            $("form")[0].reset();
+                            /*window.location=$(e.currentTarget).data().uri;*/
+                        /*} else {
+                            msgBox.html(data.message);
+                            msgBox.addClass("alert-error");
+                            msgText.show();
+                            $(window).scrollTop($('div#message').offset().top);
+                        }*/
                     } else {                  
-                        $(e.currentTarget).find("div#message p").html(data.message);
-                        $(e.currentTarget).find("div#message").show();
+                        msgText.html(data.message);
+                        msgBox.addClass("alert-error");
+                        msgBox.show();
                         $(window).scrollTop($('div#message').offset().top);
                     } 
                 }
             },
             error: function(xhr, textStatus, errorThrown) {
-                $(e.currentTarget).find("div#message p").html(xhr.responseText);
-                $(e.currentTarget).find("div#message").show();
+                msgText.html(xhr.responseText);
+                msgBox.addClass("alert-error");
+                msgBox.show();
                 $(window).scrollTop($('div#message').offset().top);
             },
             dataType: "json",
