@@ -23,8 +23,9 @@ exports.save = function(params) {
 			params.error(Response.LoginError);
 
 		//SAVING Invoice
+		var client ={__type: "Pointer", className: "Client", objectId: params.client};
 		var invoice = new Invoice();
-		invoice.set("client", params.client); // CREATE POINTER
+		invoice.set("client", client); // CREATE POINTER
 		invoice.set("challanNo", params.challanNo);
 		invoice.set("challanDate", params.challanDate);
 		invoice.set("orderNo", params.orderNo);
