@@ -20,7 +20,7 @@ router.post('/', function(req, res) {
 			if(user) {
 				console.log("USER FOUND");
 				req.session.user = JSON.stringify(user);
-				res.redirect('/client/save');
+				res.redirect('/client/');
 			} else {
 				console.log("USER NOT FOUND");
 				res.render('login', {title: 'Login', message: Response.InvalidLogin}); 

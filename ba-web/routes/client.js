@@ -1,6 +1,16 @@
 var express = require('express');
 var router = express.Router();
 
+router.get('/', function(req, res) {
+	console.log("Rendering clients list page...");
+	var currentUser = req.session.user ? JSON.parse(req.session.user) : null;	
+	if (currentUser) {	
+		res.render('client_list', { title: 'Client'});
+	} else {
+		res.redirect('/login');
+	}
+});
+
 router.get('/save', function(req, res) {
 	console.log("Rendering clients save page...");
 	var currentUser = req.session.user ? JSON.parse(req.session.user) : null;	

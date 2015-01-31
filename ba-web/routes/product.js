@@ -2,6 +2,16 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res) {
+	console.log("Rendering products list page...");
+	var currentUser = req.session.user ? JSON.parse(req.session.user) : null;	
+	if (currentUser) {	
+		res.render('product_list', { title: 'Product'});
+	} else {
+		res.redirect('/');
+	}
+});
+
+router.get('/save', function(req, res) {
 	console.log("Rendering products save page...");
 	var currentUser = req.session.user ? JSON.parse(req.session.user) : null;	
 	if (currentUser) {	
