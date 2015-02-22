@@ -1,6 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
+var Response = {
+	InvalidLogin: 'Invalid Login!'
+}
+
 router.get('/', function(req, res) {
 	var currentUser = req.session.user ? JSON.parse(req.session.user) : null;	
 	if (currentUser) {
