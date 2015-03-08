@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 var fs = require('fs');
-var pdf = require('html-pdf');
-var htmlToPdf = require('html-to-pdf');
+//var pdf = require('html-pdf');
+//var htmlToPdf = require('html-to-pdf');
 
 
 router.get('/', function(req, res) {

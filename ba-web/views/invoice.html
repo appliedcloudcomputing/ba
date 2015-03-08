@@ -40,24 +40,42 @@
 	<link rel="shortcut icon" href="img/favicon.ico">
 	<!-- end: Favicon -->
 	<!-- start: Custom JavaScript-->
-		<script src="https://code.jquery.com/jquery-1.11.1.min.js" ></script>
-		<script src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
-		<script type="text/javascript" >
-		$(document).ready(function() {
-			var t = $('#example').DataTable();
-			var counter = 1;
-		 
-			$('#addRow').on( 'click', function () {
-				
-				
-		 	alert("Counter"+ counter);
-				counter++;
-			
-			} );
-		 
-			
-		} );
-		</script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript">
+	  var count = 0;
+
+	  $(document).ready(function() {
+		$('table#myTable').dataTable({
+		  'bFilter': false,
+		  'bInfo': false,
+		  'bPaginate': false,
+		});
+
+		// Add initial row
+		addRow();
+	  } );
+
+	  function addRow() {
+		$('table#myTable').dataTable().fnAddData( [
+		  '<input type="text" name="product_' + count + '">',
+		  '<input type="text" name="description_' + count + '">',
+		  '<input type="text" name="quantity_' + count + '">',
+		  '<input type="text" name="rate_' + count + '">',
+		  '<input type="text" name="vat_amount_' + count + '">',
+		  '<input type="text" name="non_vat_amount_' + count + '">', ] );
+		count++;
+	  }
+
+	  function deleteRow () {
+		if (count != 1) {
+			var row_index = $('#myTable').find('tr');
+			//alert('Current Index'+ row_index);
+			$("table#myTable").dataTable().fnDeleteRow(count - 1);
+
+			count--;
+		}
+	  }
+	</script>
 		
 		<!-- end: Custom JavaScript-->
 </head>
@@ -523,36 +541,26 @@
 							
 							<fieldset>
 								<div class="form-actions" style="margin-bottom: 10px;"">
-									<label class="control-label" for="focusedInput" style="font-weight: bold;font-size: 20px;padding-left: 200px;"> Particulars </label>
+									<label class="control-label" for="focusedInput" style="font-weight: bold;font-size: 20px;padding-left:200px;"> Particulars </label>
 								</div>
-								<button id="addRow" >Add New</button>
-								<table id="example" class="display" cellspacing="0" width="100%">
+								<div id="controlButtons">
+								  <button onclick="addRow();">Add row</button>
+								  <button onclick="deleteRow();">Delete row</button>
+								</div>
+								  <table id="myTable">
 									<thead>
-										<tr>
-											<th>Column 1</th>
-											<th>Column 2</th>
-											<th>Column 3</th>
-											<th>Column 4</th>
-											<th>Column 5</th>
-										</tr>
+									  <tr>
+										<th>Product Name</th>
+										<th>Description</th>
+										<th>Quanity</th>
+										<th>Rate</th>
+										<th>Vat Amount</th>
+										<th>Non Vat Amount</th>
+									  </tr>
 									</thead>
-									<tr role="row">
-										<td class="sorting_1">1.1</td>
-										<td>1.2</td>
-										<td>1.3</td>
-										<td>1.4</td>
-										<td>1.5</td>
-									</tr>
-									<tfoot>
-										<tr>
-											<th>Column 1</th>
-											<th>Column 2</th>
-											<th>Column 3</th>
-											<th>Column 4</th>
-											<th>Column 5</th>
-										</tr>
-									</tfoot>
-								</table>
+									<tbody>
+									</tbody>
+								  </table>
 								
 							</fieldset>
 							
