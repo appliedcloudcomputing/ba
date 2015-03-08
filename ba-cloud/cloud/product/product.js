@@ -1,13 +1,13 @@
-var Product = Parse.Object.extend("Product");
+var Product = Parse.Object.extend('Product');
 
 var Response = {
-	ParametersEmpty: "Please provide complete details",
-	InternalServerError: "Oops! Some error occurred! Please try again",
-	NotFound: "Requested resource not found!",
-	LoginError: "Some error in current session!",
-	SaveSuccess: "Resource saved successfully!",
-	UpdateSuccess: "Resource updated successfully!",
-	DeleteSuccess: "Resource deleted successfully!"
+	ParametersEmpty: 'Please provide complete details',
+	InternalServerError: 'Oops! Some error occurred! Please try again',
+	NotFound: 'Requested resource not found!',
+	LoginError: 'Some error in current session!',
+	SaveSuccess: 'Resource saved successfully!',
+	UpdateSuccess: 'Resource updated successfully!',
+	DeleteSuccess: 'Resource deleted successfully!'
 };
 
 exports.save = function(params) {
@@ -20,17 +20,19 @@ exports.save = function(params) {
 
 		//SAVING PRODUCT
 		var product = new Product();
-		product.set("name", params.name);
-		product.set("description", params.description);
-		product.set("rate", params.rate);
-		product.set("uom", params.uom);
+		product.set('name', params.name);
+		product.set('description', params.description);
+		product.set('rate', params.rate);
+		product.set('uom', params.uom);
+		product.set('taxable', params.taxable);
+		product.set('lastUpdatedBy', currentUser);
 
 		product.save(null, {
 			success: function(product) {
 				params.success(Response.SaveSuccess);
 			},
 			error: function(product, error) {
-				console.log("ERROR IN SAVING PRODUCT : " + error.message);
+				console.log('ERROR IN SAVING PRODUCT : ' + error.message);
 				params.error(Response.InternalServerError);
 			}
  		});
@@ -49,17 +51,17 @@ exports.update = function(params) {
 		productQuery.get(params.id, {
 			success: function(product) {
 				if(product) {
-					product.set("name", params.name);
-					product.set("description", params.description);
-					product.set("rate", params.rate);
-					product.set("uom", params.uom);
-					product.set("lastUpdatedBy", currentUser);
+					product.set('name', params.name);
+					product.set('description', params.description);
+					product.set('rate', params.rate);
+					product.set('uom', params.uom);
+					product.set('lastUpdatedBy', currentUser);
 					product.save(null, {
 						success: function(product) {
 							params.success(Response.UpdateSuccess);
 						},
 						error: function(product, error) {
-							console.log("ERROR IN UPDATING PRODUCT : " + error.message);
+							console.log('ERROR IN UPDATING PRODUCT : ' + error.message);
 							params.error(Response.InternalServerError);
 						}
 			 		});
@@ -73,3 +75,5 @@ exports.update = function(params) {
 		});
 	}
 };
+
+

@@ -3,7 +3,7 @@ $(document).ready(function() {
 	var skipCount = 0;
 	var defaultFilterQuery = "";
 	var defaultLimit = 15;
-	var clientSearchUrl = "/client/search";
+	var productSearchUrl = "/product/search";
 	var scrolledToTop = false;
 
 	//KEYUP EVENT FOR ORGANIZATION SEARCH BAR
@@ -13,14 +13,14 @@ $(document).ready(function() {
 		var filterQuery = $(e.currentTarget).val();
 		if(regex.test(inp)) {			
 			if(!filterQuery || filterQuery === "" || filterQuery.length >= 3) {				
-				appendClientList(filterQuery, skipCount, false);
+				appendProductList(filterQuery, skipCount, false);
 			}
 		}
 	});	
 
 	//APPENDING LISTING
-	if(window.location.pathname == "/client/") {
-		appendClientList(defaultFilterQuery, skipCount, false);
+	if(window.location.pathname == "/product/") {
+		appendProductList(defaultFilterQuery, skipCount, false);
 	}
 
 	//PAGE SCOLL FUNCTION TO LOAD USER LIST ON SCROLLING
@@ -31,33 +31,34 @@ $(document).ready(function() {
 			skipCount += defaultLimit;
 			console.log(skipCount);
 			var filterQuery = $("#search").val();
-			appendClientList(filterQuery, skipCount, true);
+			appendProductList(filterQuery, skipCount, true);
 		} else if($(window).scrollTop() == 0) {
 			scrolledToTop = true;
 			
 			var filterQuery = $("#search").val();
-			appendClientList(filterQuery, 0, false);
+			appendProductList(filterQuery, 0, false);
 		}
 	});
 
-	function appendClientList(filterQuery, skipCount, append) {
+	function appendProductList(filterQuery, skipCount, append) {
+		console.log('INSIDE PRODUCT APPEND LIST');
 		var regex = new RegExp("^[-\sa-z0-9A-Z]+$");
 		if (!filterQuery || regex.test(filterQuery)) {
 			$.ajax({
 				type: "GET",
-				url:  clientSearchUrl,
+				url:  productSearchUrl,
 				data: {filterQuery: filterQuery, skipCount: skipCount, limit: defaultLimit},
 				success: function (data) {
 					if(!append) 
-						$("#client-list-box").empty();
+						$("#product-list-box").empty();
 						
 					for(var i = 0; i < $(data).size() ; i++) {	
-						var clientHtml = "<tr><td>" + $(data)[i].name + "</td><td class='center'>" + $(data)[i].address1 +"</td><td class='center'>" + $(data)[i].address2 +"</td><td class='center'>" + $(data)[i].city +"</td></tr>";				
-						$(clientHtml).hide().appendTo("#client-list-box").fadeIn(1000);
+						var productHtml = "<tr><td>" + $(data)[i].name + "</td><td class='center'>" + $(data)[i].description + "</td><td class='center'>" + $(data)[i].rate + "</td><td class='center'>" + $(data)[i].uom + "</td><td class='center'>" + $(data)[i].taxable + "</td></tr>";				
+						$(productHtml).hide().appendTo("#product-list-box").fadeIn(1000);
 					}
 				},
 				error: function(jqXHR, textStatus, errorthrown) {				  	
-					$("#client-list-box").empty();
+					$("#product-list-box").empty();
 					console.log("EVENT JS ERROR THROWN: "+errorthrown);
 				}
 			});
