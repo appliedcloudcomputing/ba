@@ -26,27 +26,22 @@ $(document).ready(function(){
 	function appendClientList(filterQuery){
 		console.log("----------------------------AJAX CALLED--------------------------------- ");
 		$.ajax({
-					type: "GET",
-					url:  "/client/search?filterQuery=" + filterQuery,
-					success: function (data) {
-						console.log("EVENT JS DATA : "+ JSON.stringify(data));
-						$("#client-list-box").empty();
-						for(var i = 0; i < $(data).size() ; i++) {	
-							console.log("Names : "+ $(data)[i].name);					
-							$("#client-list-box").append("<tr><td>" +
-								 $(data)[i].name +"</td><td class="center">" + 
-								 $(data)[i].address1 +"</td><td class="center">" + 
-								 $(data)[i].address2 +"</td><td class="center">" + 
-								 $(data)[i].city +"</td></tr>");
-						}
-						//$.unblockUI();
-					},
-					error: function(jqXHR, textStatus, errorthrown) {
-						//$.unblockUI();				  	
-						$("#client-list-box").empty();
-						console.log("EVENT JS ERROR THROWN: "+errorthrown);
-					}
-				});
+			type: "GET",
+			url:  "/client/search?filterQuery=" + filterQuery,
+			success: function (data) {
+				console.log("EVENT JS DATA : "+ JSON.stringify(data));
+				$("#client-list-box").empty();
+				for(var i = 0; i < $(data).size() ; i++) {	
+					console.log("Names : "+ $(data)[i].name);					
+					$("#client-list-box").append("<tr><td>" + $(data)[i].name + "</td><td class="center">" + $(data)[i].address1 +"</td><td class="center">" + $(data)[i].address2 +"</td><td class="center">" + $(data)[i].city +"</td></tr>");
+				}
+				//$.unblockUI();
+			},
+			error: function(jqXHR, textStatus, errorthrown) {
+				//$.unblockUI();				  	
+				$("#client-list-box").empty();
+				console.log("EVENT JS ERROR THROWN: "+errorthrown);
+			}
+		});
 	}
-
 });
