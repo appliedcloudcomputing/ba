@@ -21,6 +21,38 @@ router.get('/save', function(req, res) {
 	}
 });
 
+
+router.get('/list',function(req,res){
+
+	var currentUser = req.session.user ? JSON.parse(req.session.user) : null;	
+	if (currentUser) {	
+		var _products = [];
+		var Product = Parse.Object.extend('Product');
+		var productQuery = new Parse.Query(Product);
+		productQuery.find({
+			success:function(products){
+				if(products) {
+					console.log("Found Any Product");
+					for(var i = 0; i < products.length; i++) {
+						var response = {};
+						response.name = products[i].get('name');
+						_products.push(response);
+					}
+					res.writeHead(200, { "Content-Type": "application/json" });
+					res.end(JSON.stringify(_products));
+				} else {
+					console.log("No Product Found");
+				}
+			},
+			error:function(products,error){
+				console.log("Get Product Error : "+ error.code + ", Message: "+ error.message);
+			}
+		});
+	} else {
+		res.redirect('/');
+	}
+});
+
 router.post('/save', function(req, res) {
 	console.log('Saving product...');
 	var currentUser = req.session.user ? JSON.parse(req.session.user) : null;
