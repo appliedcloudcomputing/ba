@@ -1,4 +1,6 @@
-$(document).ready(function(){
+$(document).ready(function() {
+
+	console.log('INSIDE SCRIPT');
 
 	//VARIABLES FOR FILTER
 	var skipCount = 0;	
@@ -7,10 +9,11 @@ $(document).ready(function(){
 
 	//KEYUP EVENT FOR ORGANIZATION SEARCH BAR
 	$("#search").keyup(function(e) {
+		console.log('KEY PRESSED');
 		var regex = /[a-zA-Z0-9\b]/;
 		var inp = String.fromCharCode(e.keyCode);
 		var filterQuery = $(e.currentTarget).val();
-		if(regex.test(inp)){			
+		if(regex.test(inp)) {			
 			if(!filterQuery || filterQuery.length >= 3) {				
 				appendClientList(filterQuery);
 			}
