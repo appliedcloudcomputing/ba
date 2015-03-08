@@ -24,6 +24,7 @@ exports.save = function(params) {
 		product.set('description', params.description);
 		product.set('rate', params.rate);
 		product.set('uom', params.uom);
+		product.set('taxable', params.taxable);
 		product.set('lastUpdatedBy', currentUser);
 
 		product.save(null, {
@@ -74,3 +75,5 @@ exports.update = function(params) {
 		});
 	}
 };
+
+

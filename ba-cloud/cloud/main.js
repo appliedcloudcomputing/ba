@@ -11,6 +11,8 @@ var Response = {
 	DeleteSuccess: 'Resource deleted successfully!'
 };
 
+/*-----------------------------------------------CLIENT-----------------------------------------------*/
+
 Parse.Cloud.define('saveClient', function(req, res) {
 	if(!req.params.id || req.params.id == 0) {
 		client.save({
@@ -59,6 +61,8 @@ Parse.Cloud.beforeSave('Client', function(req, res) {
 	}
 });
 
+/*-----------------------------------------------PRODUCT-----------------------------------------------*/
+
 Parse.Cloud.define('saveProduct', function(req, res) {
 	if(!req.params.id || req.params.id == 0) {
 		product.save({
@@ -67,6 +71,7 @@ Parse.Cloud.define('saveProduct', function(req, res) {
 			rate: req.params.rate,
 			uom: req.params.uom,
 			city: req.params.city,
+			taxable: req.params.taxable,
 			success: function(message) {
 				res.success(message);
 			},
@@ -82,6 +87,7 @@ Parse.Cloud.define('saveProduct', function(req, res) {
 			rate: req.params.rate,
 			uom: req.params.uom,
 			city: req.params.city,
+			taxable: req.params.taxable,
 			success: function(message) {
 				res.success(message);
 			},

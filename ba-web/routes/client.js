@@ -4,8 +4,7 @@ var router = express.Router();
 router.get('/', function(req, res) {
 	console.log('Rendering clients list page...');
 	var currentUser = req.session.user ? JSON.parse(req.session.user) : null;	
-	if (currentUser) {	
-
+	if (currentUser) {
 		res.render('client_list', { title: 'Client'});
 	} else {
 		res.redirect('/login');
@@ -60,7 +59,7 @@ router.get('/search', function(req, res) {
 	var filterQuery = req.query.filterQuery ? req.query.filterQuery.toLowerCase().trim() : null;
 	var skipCount = req.query.skipCount ? req.query.skipCount.trim() : '0';
 	var limit = req.query.limit ? req.query.limit.trim() : '0';
-	
+
 	if (currentUser) {
 		var Client = Parse.Object.extend('Client');
 		var clientQuery = new Parse.Query(Client);
@@ -75,10 +74,10 @@ router.get('/search', function(req, res) {
 					var _clients = [];
 					for (var i = 0; i < clients.length; i++) {
 						_clientJson = {};
-						_clientJson.name = clients[i].get('name');
-						_clientJson.address1 = clients[i].get('address1');
-						_clientJson.address2 = clients[i].get('address2');
-						_clientJson.city = clients[i].get('city');
+						_clientJson.name = clients[i].get('name') ? clients[i].get('name') : '';
+						_clientJson.address1 = clients[i].get('address1') ? clients[i].get('address1') : '';
+						_clientJson.address2 = clients[i].get('address2') ? clients[i].get('address2') : '';
+						_clientJson.city = clients[i].get('city') ? clients[i].get('city') : '';
 						_clients.push(_clientJson);
 					};
 					res.writeHead(200, { 'Content-Type': 'application/json' });
