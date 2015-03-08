@@ -57,18 +57,23 @@ router.post('/save', function(req, res) {
 
 router.get('/search', function(req, res) {
 	var currentUser = req.session.user ? JSON.parse(req.session.user) : null;
+	var filterQuery = req.query.filterQuery ? req.query.filterQuery.toLowerCase().trim() : null;
+	var skipCount = req.query.skipCount ? req.query.skipCount.trim() : '0';
+	var limit = req.query.limit ? req.query.limit.trim() : '0';
 	
 	if (currentUser) {
 		var Client = Parse.Object.extend('Client');
 		var clientQuery = new Parse.Query(Client);
 		clientQuery.descending('createdAt');
+		if(filterQuery)
+			clientQuery.contains('tags', filterQuery);
+		clientQuery.skip(skipCount);
+		clientQuery.limit(limit);
 		clientQuery.find({
 			success: function(clients) {
 				if(clients){
 					var _clients = [];
-					console.log('No. of Clients: ' + clients.length);
 					for (var i = 0; i < clients.length; i++) {
-						console.log('Name : '+clients[i].get('name'));
 						_clientJson = {};
 						_clientJson.name = clients[i].get('name');
 						_clientJson.address1 = clients[i].get('address1');
@@ -76,7 +81,6 @@ router.get('/search', function(req, res) {
 						_clientJson.city = clients[i].get('city');
 						_clients.push(_clientJson);
 					};
-					console.log('CLIENTS: ' + JSON.stringify(clients));
 					res.writeHead(200, { 'Content-Type': 'application/json' });
 					res.end(JSON.stringify(_clients));
 				}

@@ -2,16 +2,16 @@ var client = require('cloud/client/client.js');
 var product = require('cloud/product/product.js');
 
 var Response = {
-	ParametersEmpty: "Please provide complete details",
-	InternalServerError: "Oops! Some error occurred! Please try again",
-	NotFound: "Requested resource not found!",
-	LoginError: "Some error in current session!",
-	SaveSuccess: "Resource saved successfully!",
-	UpdateSuccess: "Resource updated successfully!",
-	DeleteSuccess: "Resource deleted successfully!"
+	ParametersEmpty: 'Please provide complete details',
+	InternalServerError: 'Oops! Some error occurred! Please try again',
+	NotFound: 'Requested resource not found!',
+	LoginError: 'Some error in current session!',
+	SaveSuccess: 'Resource saved successfully!',
+	UpdateSuccess: 'Resource updated successfully!',
+	DeleteSuccess: 'Resource deleted successfully!'
 };
 
-Parse.Cloud.define("saveClient", function(req, res) {
+Parse.Cloud.define('saveClient', function(req, res) {
 	if(!req.params.id || req.params.id == 0) {
 		client.save({
 			name: req.params.name,
@@ -44,7 +44,22 @@ Parse.Cloud.define("saveClient", function(req, res) {
 	}
 });
 
-Parse.Cloud.define("saveProduct", function(req, res) {
+Parse.Cloud.beforeSave('Client', function(req, res) {
+	var client = req.object;
+	var currentUser = client.get('lastUpdatedBy');
+	if(currentUser) {
+		var tags;
+		var name = client.get('name');
+		var city = client.get('city');
+		tags = '#' + name + '#' + city;
+		client.set('tags', tags);
+		res.success();
+	} else {
+		res.error(Response.LoginError);
+	}
+});
+
+Parse.Cloud.define('saveProduct', function(req, res) {
 	if(!req.params.id || req.params.id == 0) {
 		product.save({
 			name: req.params.name,
@@ -74,5 +89,19 @@ Parse.Cloud.define("saveProduct", function(req, res) {
 				res.error(error);
 			}
 		});
+	}
+});
+
+Parse.Cloud.beforeSave('Product', function(req, res) {
+	var product = req.object;
+	var currentUser = product.get('lastUpdatedBy');
+	if(currentUser) {
+		var tags;
+		var name = product.get('name');
+		tags = '#' + name;
+		product.set('tags', tags);
+		res.success();
+	} else {
+		res.error(Response.LoginError);
 	}
 });
