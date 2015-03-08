@@ -25,16 +25,16 @@ $(document).ready(function() {
 
 	//PAGE SCOLL FUNCTION TO LOAD USER LIST ON SCROLLING
 	$(window).scroll(function () {
+
 		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
 			if(scrolledToTop)
 				skipCount = 0;
+			scrolledToTop = false;
 			skipCount += defaultLimit;
-			console.log(skipCount);
 			var filterQuery = $("#search").val();
 			appendClientList(filterQuery, skipCount, true);
 		} else if($(window).scrollTop() == 0) {
 			scrolledToTop = true;
-			
 			var filterQuery = $("#search").val();
 			appendClientList(filterQuery, 0, false);
 		}

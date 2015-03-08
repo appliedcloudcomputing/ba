@@ -28,8 +28,8 @@ $(document).ready(function() {
 		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
 			if(scrolledToTop)
 				skipCount = 0;
+			scrolledToTop = false;
 			skipCount += defaultLimit;
-			console.log(skipCount);
 			var filterQuery = $("#search").val();
 			appendProductList(filterQuery, skipCount, true);
 		} else if($(window).scrollTop() == 0) {
