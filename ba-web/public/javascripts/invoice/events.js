@@ -10,9 +10,10 @@ $(document).ready(function() {
 	  'bPaginate': false,
 	});
 
+  	populateClients();
 	addRow();
 
-	//VARIABLES FOR PDF GENERATION
+	/*//VARIABLES FOR PDF GENERATION
     var _html = getPageHTML();
     var doc = new jsPDF();
     var specialElementHandlers = {
@@ -32,28 +33,46 @@ $(document).ready(function() {
 	            'elementHandlers': specialElementHandlers
 	    });
 	    doc.save('invoice.pdf');
-    }
+    }*/
 });
 
 var clientsData = {};
 function populateClients() {
 	$.ajax({
 		type: "GET",
-		url:  "/product/list",
+		url:  "/client/list",
 		success: function (data) {
-			for(var i = 0; i < $(data).size(); i++) {
-				var _clientData = {
-					'address1': data[i].address1,
-					'address2': data[i].address2,
-					'address3': data[i].address3,
-					'city': data[i].city
+			if(data && $(data).size() > 0) {
+				for(var i = 0; i < $(data).size(); i++) {
+
+					$('#clientName').append('<option value="' + data[i].id + '">' + data[i].name + '</option>');
+
+					var _clientData = {
+						'address1': data[i].address1,
+						'address2': data[i].address2,
+						'address3': data[i].address3,
+						'city': data[i].city
+					}
+					clientsData[data[i].id] = _clientData;
+
+					$('#clientName').on('change', function() {
+						var selectedClientId = $(this).val();
+						var cd = clientsData[selectedClientId];
+						var name = cd.name;
+						var address1 = cd.address1;
+						var address2 = cd.address2;
+						var address3 = cd.address3;
+						var city = cd.city;
+						$('#addressLine1').val(address1);
+						$('#addressLine2').val(address2);
+						$('#addressLine3').val(address3);
+						$('#city').val(city);
+					});
 				}
-				clientsData[data[i].id] = data[i].
 			}
-			
 		},
 		error: function(jqXHR, textStatus, errorthrown) {
-			console.log("EVENT JS ERROR THROWN: "+errorthrown);
+			console.log("EVENT JS ERROR THROWN: " + JSON.stringify(jqXHR));
 		}
 	});
 }
@@ -100,7 +119,6 @@ function addRow() {
 			});
 
 			$('#quantity_' + count).on('input', function(event) {
-				console.log('INSIDE KEYPRESS QUANTITY');
 				var quantity = $(this).val();
 				var rate = $('#rate_' + count).val();
 				var totalAmount = quantity * rate;

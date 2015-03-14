@@ -103,15 +103,18 @@ router.get('/list',function(req,res){
 		clientQuery.find({
 			success:function(clients) {
 				if(clients) {
+					console.log('CLIENTS LENGTH: ' + clients.length);
 					for(var i = 0; i < clients.length; i++) {
 						var response = {};
-						response.name = clients[i].get('name');
+						console.log('CLIENTS: ' + clients[i].get('name'));
+						console.log('address1: ' + clients[i].get('address1'));
 						response.id = clients[i].id;
+						response.name = clients[i].get('name');
 						response.address1 = clients[i].get('address1');
 						response.address2 = clients[i].get('address2');
 						response.address3 = clients[i].get('address3');
 						response.city = clients[i].get('city');
-						_products.push(response);
+						_clients.push(response);
 					}
 					res.writeHead(200, { "Content-Type": "application/json" });
 					res.end(JSON.stringify(_clients));
