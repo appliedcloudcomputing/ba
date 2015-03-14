@@ -1,5 +1,6 @@
 var client = require('cloud/client/client.js');
 var product = require('cloud/product/product.js');
+var invoice = require('cloud/invoice/invoice.js');
 
 var Response = {
 	ParametersEmpty: 'Please provide complete details',
@@ -109,5 +110,30 @@ Parse.Cloud.beforeSave('Product', function(req, res) {
 		res.success();
 	} else {
 		res.error(Response.LoginError);
+	}
+});
+
+/*-----------------------------------------------INVOICE-----------------------------------------------*/
+
+Parse.Cloud.define('saveInvoice', function(req, res) {
+	if(!req.params.id || req.params.id == 0) {
+		invoice.save({
+			success: function(message) {
+				res.success(message);
+			},
+			error: function(error) {
+				res.error(error);
+			}
+		});
+	} else {
+		invoice.update({
+			id: req.params.id,
+			success: function(message) {
+				res.success(message);
+			},
+			error: function(error) {
+				res.error(error);
+			}
+		});
 	}
 });

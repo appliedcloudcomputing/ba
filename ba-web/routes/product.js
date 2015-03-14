@@ -36,6 +36,8 @@ router.get('/list',function(req,res){
 					for(var i = 0; i < products.length; i++) {
 						var response = {};
 						response.name = products[i].get('name');
+						response.id = products[i].id;
+						response.taxable = products[i].get('taxable');
 						_products.push(response);
 					}
 					res.writeHead(200, { "Content-Type": "application/json" });
