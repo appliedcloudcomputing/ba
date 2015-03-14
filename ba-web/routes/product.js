@@ -22,7 +22,7 @@ router.get('/save', function(req, res) {
 });
 
 
-router.get('/list',function(req,res){
+router.get('/list',function(req,res) {
 
 	var currentUser = req.session.user ? JSON.parse(req.session.user) : null;	
 	if (currentUser) {	
