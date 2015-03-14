@@ -25,8 +25,9 @@ exports.save = function(params) {
 		|| !params.packagingAndForwarding 
 		|| !params.taxType 
 		|| !params.taxPercentage 
+		|| !params.taxAmount 
 		|| !params.transportType 
-		|| !params.transportPercentage 
+		|| !params.transportAmount 
 		|| !params.netAmount 
 		|| !params.netAmountInWords) {
 		params.error(Response.ParametersEmpty);
@@ -52,8 +53,10 @@ exports.save = function(params) {
 		invoice.set('packagingAndForwarding',params.packagingAndForwarding);
 		invoice.set('taxType',params.taxType);
 		invoice.set('taxPercentage',params.taxPercentage);
+		invoice.set('taxAmount',params.taxAmount);
 		invoice.set('transportType',params.transportType);
 		invoice.set('transportPercentage',params.transportPercentage);
+		invoice.set('transportAmount',params.transportAmount);
 		invoice.set('netAmount',params.netAmount);
 		invoice.set('netAmountInWords',params.netAmountInWords);
 		invoice.save(null, {

@@ -17,12 +17,28 @@ router.post('/save', function(req, res) {
 	var currentUser = req.session.user ? JSON.parse(req.session.user) : null;
 	if(currentUser) {
 		var data = {'id': req.body.id,
-					'name':req.body.clientName,
-					'description':req.body.description, 
-					'rate':req.body.rate, 
-					'uom':req.body.uom};
+					'clientId':req.body.clientName,
+					'challanNo':req.body.challanNo, 
+					'challanDate':req.body.challanDate, 
+					'orderNo':req.body.orderNo,
+					'orderDate':req.body.orderDate,
+					'invoiceNo':req.body.invoiceNo,
+					'invoiceDate':req.body.invoiceDate,
+					'grossAmount':req.body.grossAmount,
+					'grossNonVatAmount':req.body.grossNonVatAmount,
+					'subTotal':req.body.subTotal,
+					'packagingAndForwarding':req.body.packagingAndForwarding,
+					'subTotal2':req.body.subTotal2,
+					'taxType':req.body.taxType,
+					'taxPercentage':req.body.taxPercentage,
+					'taxAmount':req.body.taxAmount,
+					'transportType':req.body.transportType,
+					'transportAmount':req.body.transportAmount,
+					'netAmount':req.body.netAmount,
+					'netAmountInWords':req.body.netAmountInWords		,
+					 };
 
-		Parse.Cloud.run('saveProduct', data, {
+		Parse.Cloud.run('saveInvoice', data, {
 			success: function(message) {
 				var response = {
 					message: message,
@@ -37,7 +53,7 @@ router.post('/save', function(req, res) {
 				}
 				res.end(JSON.stringify(response));
 			}
-		});
+		});	
 	} else {
 		res.redirect('/login');
 	} 

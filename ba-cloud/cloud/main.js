@@ -116,8 +116,27 @@ Parse.Cloud.beforeSave('Product', function(req, res) {
 /*-----------------------------------------------INVOICE-----------------------------------------------*/
 
 Parse.Cloud.define('saveInvoice', function(req, res) {
+
 	if(!req.params.id || req.params.id == 0) {
 		invoice.save({
+			clientId: req.params.clientId,
+			challanNo: req.params.challanNo,
+			challanDate: req.params.challanDate,
+			orderNo: req.params.orderNo,
+			orderDate: req.params.orderDate,
+			invoiceNo: req.params.invoiceNo,
+			invoiceDate: req.params.invoiceDate,
+			grossAmount: req.params.grossAmount,
+			grossNonVatAmount: req.params.grossNonVatAmount,
+			packagingAndForwarding: req.params.packagingAndForwarding,
+			taxType: req.params.taxType,
+			taxPercentage: req.params.taxPercentage,
+			taxAmount: req.params.taxAmount,
+			transportType: req.params.transportType,
+			transportAmount: req.params.transportAmount,
+			netAmount: req.params.netAmount,
+			netAmountInWords: req.params.netAmountInWords,
+
 			success: function(message) {
 				res.success(message);
 			},
@@ -128,6 +147,25 @@ Parse.Cloud.define('saveInvoice', function(req, res) {
 	} else {
 		invoice.update({
 			id: req.params.id,
+			clientId: req.params.clientId,
+			challanNo: req.params.challanNo,
+			challanDate: req.params.challanDate,
+			orderNo: req.params.orderNo,
+			orderDate: req.params.orderDate,
+			invoiceNo: req.params.invoiceNo,
+			invoiceDate: req.params.invoiceDate,
+			grossAmount: req.params.grossAmount,
+			grossNonVatAmount: req.params.grossNonVatAmount,
+			packagingAndForwarding: req.params.packagingAndForwarding,
+			taxType: req.params.taxType,
+			taxPercentage: req.params.taxPercentage,
+			taxAmount: req.params.taxAmount,
+			transportType: req.params.transportType,
+			transportPercentage: req.params.transportPercentage,
+			transportAmount: req.params.transportAmount,
+			netAmount: req.params.netAmount,
+			amountWords: req.params.amountWords,
+
 			success: function(message) {
 				res.success(message);
 			},
