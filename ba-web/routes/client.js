@@ -93,5 +93,39 @@ router.get('/search', function(req, res) {
 	}
 });
 
+router.get('/list',function(req,res){
+
+	var currentUser = req.session.user ? JSON.parse(req.session.user) : null;	
+	if (currentUser) {	
+		var _clients = [];
+		var Client = Parse.Object.extend('Client');
+		var clientQuery = new Parse.Query(Client);
+		clientQuery.find({
+			success:function(clients) {
+				if(clients) {
+					for(var i = 0; i < clients.length; i++) {
+						var response = {};
+						response.name = clients[i].get('name');
+						response.id = clients[i].id;
+						response.address1 = clients[i].get('address1');
+						response.address2 = clients[i].get('address2');
+						response.address3 = clients[i].get('address3');
+						response.city = clients[i].get('city');
+						_products.push(response);
+					}
+					res.writeHead(200, { "Content-Type": "application/json" });
+					res.end(JSON.stringify(_clients));
+				} else {
+					console.log("No Clients Found");
+				}
+			},
+			error:function(clients ,error){
+				console.log("Get Clients Error : "+ error.code + ", Message: "+ error.message);
+			}
+		});
+	} else {
+		res.redirect('/');
+	}
+});
 
 module.exports = router;
