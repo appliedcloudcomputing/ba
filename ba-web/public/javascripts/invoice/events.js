@@ -95,54 +95,61 @@ function addRow() {
 				htmlArray.push('<option value="' + data[i].id + '">' + data[i].name + '</option>');
 			}
 			var htmlString = htmlArray.join("");
+			var _count=count-1;
+			if($('#selectProduct_' + _count) && $('#selectProduct_' + _count +' option:selected').text() !="Select Product"){
 
-			$('table#myTable').dataTable().fnAddData([
-			  '<select required="required" id="selectProduct_' + count + '">' + htmlString + '</select>',
-			  '<input type="text" style="width: 300px;" id="description_' + count + '" value="0" name="description_' + count + '">',
-			  '<input type="text" style="width: 50px;" id="quantity_' + count + '" value="0" name="quantity_' + count + '">',
-			  '<input type="text" style="width: 50px;" id="rate_' + count + '" value="0" name="rate_' + count + '">',
-			  '<input type="text" style="width: 100px;" id="vat_amount_' + count + '" value="0" name="vat_amount_' + count + '">',
-			  '<input type="text" style="width: 100px;" id="non_vat_amount_' + count + '" value="0" name="non_vat_amount_' + count + '">']);
+				  console.log("SELECT OPTION: "+$('#selectProduct_' + _count +' option:selected').text());
+				  console.log("COUNT :"+count);
+				  $('table#myTable').dataTable().fnAddData([
+				  '<select required="required" id="selectProduct_' + count + '">' + htmlString + '</select>',
+				  '<input type="text" style="width: 300px;" id="description_' + count + '" value="0" name="description_' + count + '">',
+				  '<input type="text" style="width: 50px;" id="quantity_' + count + '" value="0" name="quantity_' + count + '">',
+				  '<input type="text" style="width: 50px;" id="rate_' + count + '" value="0" name="rate_' + count + '">',
+				  '<input type="text" style="width: 100px;" id="vat_amount_' + count + '" value="0" name="vat_amount_' + count + '">',
+				  '<input type="text" style="width: 100px;" id="non_vat_amount_' + count + '" value="0" name="non_vat_amount_' + count + '">']);
 
-			//var row = productTable.fnGetNodes(rowIndex);
+				//var row = productTable.fnGetNodes(rowIndex);
 
-			$('#selectProduct_' + count).on('change', function() {
-				seletedProductId = $(this).val();
-				var taxable = productTaxable[seletedProductId];
-				if(taxable) {
-					$('#non_vat_amount_' + count).attr('disabled', true);
-					$('#vat_amount_' + count).attr('disabled', false);
-				} else {
-					$('#vat_amount_' + count).attr('disabled', true);
-					$('#non_vat_amount_' + count).attr('disabled', false);
-				}
-			});
+				$('#selectProduct_' + count).on('change', function() {
+					seletedProductId = $(this).val();
+					var taxable = productTaxable[seletedProductId];
+					if(taxable) {
+						$('#non_vat_amount_' + count).attr('disabled', true);
+						$('#vat_amount_' + count).attr('disabled', false);
+					} else {
+						$('#vat_amount_' + count).attr('disabled', true);
+						$('#non_vat_amount_' + count).attr('disabled', false);
+					}
+				});
 
-			$('#quantity_' + count).on('input', function(event) {
-				var quantity = $(this).val();
-				var rate = $('#rate_' + count).val();
-				var totalAmount = quantity * rate;
-				if($('#non_vat_amount_' + count).attr('disabled')) {
-					$('#vat_amount_' + count).val(totalAmount);
-					$('#non_vat_amount_' + count).val("0");
-				} else if($('#vat_amount_' + count).attr('disabled')) {
-					$('#non_vat_amount_' + count).val(totalAmount);
-					$('#vat_amount_' + count).val("0");
-				}
-			});
+				$('#quantity_' + count).on('input', function(event) {
+					var quantity = $(this).val();
+					var rate = $('#rate_' + count).val();
+					var totalAmount = quantity * rate;
+					if($('#non_vat_amount_' + count).attr('disabled')) {
+						$('#vat_amount_' + count).val(totalAmount);
+						$('#non_vat_amount_' + count).val("0");
+					} else if($('#vat_amount_' + count).attr('disabled')) {
+						$('#non_vat_amount_' + count).val(totalAmount);
+						$('#vat_amount_' + count).val("0");
+					}
+				});
 
-			$('#rate_' + count).on('input', function(event) {
-				var quantity = $('#quantity_' + count).val();
-				var rate = $(this).val();
-				var totalAmount = quantity * rate;
-				if($('#non_vat_amount_' + count).attr('disabled')) {
-					$('#vat_amount_' + count).val(totalAmount);
-					$('#non_vat_amount_' + count).val("0");
-				} else if($('#vat_amount_' + count).attr('disabled')) {
-					$('#non_vat_amount_' + count).val(totalAmount);
-					$('#vat_amount_' + count).val("0");
-				}
-			});
+				$('#rate_' + count).on('input', function(event) {
+					var quantity = $('#quantity_' + count).val();
+					var rate = $(this).val();
+					var totalAmount = quantity * rate;
+					if($('#non_vat_amount_' + count).attr('disabled')) {
+						$('#vat_amount_' + count).val(totalAmount);
+						$('#non_vat_amount_' + count).val("0");
+					} else if($('#vat_amount_' + count).attr('disabled')) {
+						$('#non_vat_amount_' + count).val(totalAmount);
+						$('#vat_amount_' + count).val("0");
+					}
+				});
+			}
+
+
 		},
 		error: function(jqXHR, textStatus, errorthrown) {
 			console.log("EVENT JS ERROR THROWN: "+errorthrown);
