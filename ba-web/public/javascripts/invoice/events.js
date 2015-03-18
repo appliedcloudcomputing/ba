@@ -94,12 +94,8 @@ function addRow() {
 				productTaxable[data[i].id] = data[i].taxable;
 				htmlArray.push('<option value="' + data[i].id + '">' + data[i].name + '</option>');
 			}
-			var htmlString = htmlArray.join("");
-			var _count=count-1;
-			if($('#selectProduct_' + _count) && $('#selectProduct_' + _count +' option:selected').text() !="Select Product"){
-
-				  console.log("SELECT OPTION: "+$('#selectProduct_' + _count +' option:selected').text());
-				  console.log("COUNT :"+count);
+			var htmlString = htmlArray.join("");				 
+				
 				  $('table#myTable').dataTable().fnAddData([
 				  '<select required="required" id="selectProduct_' + count + '">' + htmlString + '</select>',
 				  '<input type="text" style="width: 300px;" id="description_' + count + '" value="0" name="description_' + count + '">',
@@ -111,7 +107,8 @@ function addRow() {
 				//var row = productTable.fnGetNodes(rowIndex);
 
 				$('#selectProduct_' + count).on('change', function() {
-					seletedProductId = $(this).val();
+					console.log("CURRENT COUNT :"+count);
+					seletedProductId = $('#selectProduct_' + count).val();
 					var taxable = productTaxable[seletedProductId];
 					if(taxable) {
 						$('#non_vat_amount_' + count).attr('disabled', true);
@@ -123,6 +120,7 @@ function addRow() {
 				});
 
 				$('#quantity_' + count).on('input', function(event) {
+
 					var quantity = $(this).val();
 					var rate = $('#rate_' + count).val();
 					var totalAmount = quantity * rate;
@@ -147,7 +145,7 @@ function addRow() {
 						$('#vat_amount_' + count).val("0");
 					}
 				});
-			}
+			
 
 
 		},
