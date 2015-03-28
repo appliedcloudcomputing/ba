@@ -58,16 +58,31 @@ function populateClients() {
 
 					$('#clientName').on('change', function() {
 						var selectedClientId = $(this).val();
-						var cd = clientsData[selectedClientId];
-						var name = cd.name;
-						var address1 = cd.address1;
-						var address2 = cd.address2;
-						var address3 = cd.address3;
-						var city = cd.city;
-						$('#addressLine1').val(address1);
-						$('#addressLine2').val(address2);
-						$('#addressLine3').val(address3);
-						$('#city').val(city);
+						if(selectedClientId) {
+							var cd = clientsData[selectedClientId];
+							var name = cd.name;
+							var address1 = cd.address1;
+							var address2 = cd.address2;
+							var address3 = cd.address3;
+							var city = cd.city;
+							$('#addressLine1').val(address1);
+							$("#addressLine1").prop('disabled', true);
+							$('#addressLine2').val(address2);
+							$("#addressLine2").prop('disabled', true);
+							$('#addressLine3').val(address3);
+							$("#addressLine3").prop('disabled', true);
+							$('#city').val(city);
+							$("#city").prop('disabled',true);
+						} else {
+							$('#addressLine1').val('');
+							$("#addressLine1").prop('disabled', false);
+							$('#addressLine2').val('');
+							$("#addressLine2").prop('disabled', false);
+							$('#addressLine3').val('');
+							$("#addressLine3").prop('disabled', false);
+							$('#city').val('');
+							$("#city").prop('disabled', false);
+						}
 					});
 				}
 				/* ---------- Choosen ---------- */
