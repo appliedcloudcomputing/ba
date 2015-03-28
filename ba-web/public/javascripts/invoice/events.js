@@ -113,7 +113,7 @@ function addRow() {
 				htmlArray.push('<option value="' + data[i].id + '">' + data[i].name + '</option>');
 			}
 			var htmlString = htmlArray.join("");				 
-				
+				  $('#myTableCount').val(count);
 				  $('table#myTable').dataTable().fnAddData([
 				  '<select required="required" id="selectProduct_' + count + '">' + htmlString + '</select>',
 				  '<input type="text" style="width: 300px;" id="description_' + count + '" value="0" name="description_' + count + '">',

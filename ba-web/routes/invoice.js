@@ -25,6 +25,13 @@ router.get('/save', function(req, res) {
 router.post('/save', function(req, res) {
 	console.log('Saving Invoice...');
 	var currentUser = req.session.user ? JSON.parse(req.session.user) : null;
+	//Get Particulars 
+	var particularCount = req.body.myTableCount;
+	console.log("******************* Particluar Count :"+ particularCount + "**************************");
+	for(var i=1;i<=particularCount;i++){
+
+		console.log("Product Name: "+ req.body.selectProduct_1);
+	}
 	if(currentUser) {
 		var data = {'id': req.body.id,
 					'clientId':req.body.clientName,
