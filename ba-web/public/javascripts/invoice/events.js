@@ -43,6 +43,7 @@ function populateClients() {
 		url:  "/client/list",
 		success: function (data) {
 			if(data && $(data).size() > 0) {
+				$('#clientName').append('<option value=""></option>');
 				for(var i = 0; i < $(data).size(); i++) {
 
 					$('#clientName').append('<option value="' + data[i].id + '">' + data[i].name + '</option>');
@@ -70,7 +71,7 @@ function populateClients() {
 					});
 				}
 				/* ---------- Choosen ---------- */
-				$('[data-rel="chosen"],[rel="chosen"]').chosen();
+				$('[data-rel="chosen"],[rel="chosen"]').chosen({allow_single_deselect: true});
 			}
 		},
 		error: function(jqXHR, textStatus, errorthrown) {
