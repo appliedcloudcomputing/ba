@@ -46,7 +46,7 @@ function populateClients() {
 				for(var i = 0; i < $(data).size(); i++) {
 
 					$('#clientName').append('<option value="' + data[i].id + '">' + data[i].name + '</option>');
-
+					
 					var _clientData = {
 						'address1': data[i].address1,
 						'address2': data[i].address2,
