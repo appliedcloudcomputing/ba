@@ -69,6 +69,8 @@ function populateClients() {
 						$('#city').val(city);
 					});
 				}
+				/* ---------- Choosen ---------- */
+				$('[data-rel="chosen"],[rel="chosen"]').chosen();
 			}
 		},
 		error: function(jqXHR, textStatus, errorthrown) {
