@@ -1,6 +1,16 @@
 var express = require('express');
 var router = express.Router();
 
+router.get('/', function(req, res) {
+	console.log('Rendering invoice list page...');
+	var currentUser = req.session.user ? JSON.parse(req.session.user) : null;	
+	if (currentUser) {
+		res.render('invoice_list', { title: 'Invoice'});
+	} else {
+		res.redirect('/login');
+	}
+});
+
 router.get('/save', function(req, res) {
 	console.log("Rendering invoice save page...");
 	var currentUser = req.session.user ? JSON.parse(req.session.user) : null;	
@@ -81,15 +91,21 @@ router.get('/search', function(req, res) {
 					var _invoices = [];
 					for (var i = 0; i < invoices.length; i++) {
 						_invoiceJson = {};
-						_invoiceJson.name = _invoices[i].get('name') ? _invoices[i].get('name') : '';
-						_invoiceJson.invoiceNo = _invoices[i].get('invoiceNo') ? _invoices[i].get('invoiceNo') : '';
-						_invoiceJson.orderNo = _invoices[i].get('orderNo') ? _invoices[i].get('orderNo') : '';
-						_invoiceJson.challanNo = _invoices[i].get('challanNo') ? _invoices[i].get('challanNo') : '';
-						_invoiceJson.netAmount = _invoices[i].get('netAmount') ? _invoices[i].get('netAmount') : '';
+						console.log('INVOICE NO: ' + invoices[i].get('invoiceNo'));
+						console.log('CHALLAN NO: ' + invoices[i].get('challanNo'));
+						
+						_invoiceJson.name = invoices[i].get('name') ? invoices[i].get('name') : '';
+						_invoiceJson.invoiceNo = invoices[i].get('invoiceNo') ? invoices[i].get('invoiceNo') : '';
+						_invoiceJson.challanNo = invoices[i].get('challanNo') ? invoices[i].get('challanNo') : '';
+						_invoiceJson.orderNo = invoices[i].get('orderNo') ? invoices[i].get('orderNo') : '';
+						_invoiceJson.netAmount = invoices[i].get('netAmount') ? invoices[i].get('netAmount') : '';
 						_invoices.push(_invoiceJson);
 					};
 					res.writeHead(200, { 'Content-Type': 'application/json' });
 					res.end(JSON.stringify(_invoices));
+				}
+				else{
+					console.log("No Invoice Found");
 				}
 			},
 			error: function(invoices, error) {

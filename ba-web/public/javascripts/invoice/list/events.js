@@ -52,7 +52,7 @@ $(document).ready(function() {
 						$("#invoice-list-box").empty();
 						
 					for(var i = 0; i < $(data).size() ; i++) {	
-						var invoiceHtml = "<tr><td>" + $(data)[i].name + "</td><td class='center'>" + $(data)[i].address1 +"</td><td class='center'>" + $(data)[i].address2 +"</td><td class='center'>" + $(data)[i].city +"</td></tr>";				
+						var invoiceHtml = "<tr><td>" + $(data)[i].name + "</td><td class='center'>" + $(data)[i].invoiceNo +"</td><td class='center'>" + $(data)[i].challanNo +"</td><td class='center'>" + $(data)[i].orderNo +"</td><td class='center'>" + $(data)[i].netAmount +"</td></tr>";				
 						$(invoiceHtml).hide().appendTo("#invoice-list-box").fadeIn(1000);
 					}
 				},
