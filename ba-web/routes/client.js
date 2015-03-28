@@ -113,6 +113,7 @@ router.get('/list',function(req,res){
 						response.address1 = clients[i].get('address1');
 						response.address2 = clients[i].get('address2');
 						response.address3 = clients[i].get('address3');
+						console.log("ADDRESS 3 :"+clients[i].get('address3'));
 						response.city = clients[i].get('city');
 						_clients.push(response);
 					}
